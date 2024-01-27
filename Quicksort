@@ -1,0 +1,35 @@
+def quicksort_in_place(A, low, high):
+    if low < high:
+        # Partition the array and get the pivot index
+        pivot_index = partition(A, low, high)
+
+        # Recursively sort the subarrays on both sides of the pivot
+        quicksort_in_place(A, low, pivot_index - 1)
+        quicksort_in_place(A, pivot_index + 1, high)
+
+def partition(A, low, high):
+    # Choose the leftmost element as the pivot
+    pivot = A[low]
+
+    # Initialize the index of the smaller element
+    i = low + 1
+
+    # Traverse the array and rearrange elements based on whether they are less than or equal to the pivot
+    for j in range(low + 1, high + 1):
+        if A[j] <= pivot:
+            A[i], A[j] = A[j], A[i]
+            i += 1
+
+    # Swap the pivot with the element at the correct position
+    A[low], A[i - 1] = A[i - 1], A[low]
+
+    # Return the index of the pivot element
+    return i - 1
+
+
+# Example usage:
+arr = [38, 27, 43, 3, 9, 82, 10]
+print("Original Array:", arr)
+
+quicksort_in_place(arr, 0, len(arr) - 1)
+print("Sorted Array:", arr)
